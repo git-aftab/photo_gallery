@@ -46,35 +46,42 @@ export default function Gallery() {
 
   return (
     <>
-      <header>
-        <h1 className="title-condensed text-7xl font-black leading-[0.85] tracking-tight sm:text-9xl">
-          Photo gallery
+      <header className="border-b border-line/70 pb-8 sm:pb-10">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-accent sm:mb-4">
+          The wedding edit
+        </p>
+        <h1 className="title-condensed max-w-3xl text-5xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-7xl lg:text-8xl">
+          Moments, held close.
         </h1>
+        <p className="mt-4 max-w-xl text-sm leading-6 text-ink-soft sm:mt-5 sm:text-base">
+          A considered collection of celebrations, gestures, and gathering.
+        </p>
         <SearchBar value={query} onChange={handleSearchChange} />
       </header>
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-10">
         {loading && <Spinner />}
 
         {error && (
-          <p role="alert" className="max-w-xl py-16 text-xl">
-            Photos could not be loaded. {error} Check your connection and
-            reload the page.
+          <p role="alert" className="max-w-xl rounded-lg border border-accent/30 bg-mat px-5 py-10 text-base leading-7 text-ink-soft sm:px-7">
+            <span className="block font-semibold text-ink">The gallery is unavailable.</span>
+            Photos could not be loaded. {error} Check your connection and reload the page.
           </p>
         )}
 
         {!loading && !error && filteredPhotos.length === 0 && (
-          <p className="py-16 text-xl">
+          <p className="max-w-xl rounded-lg border border-line/70 bg-mat px-5 py-10 text-base leading-7 text-ink-soft sm:px-7">
             No photos by “{query.trim()}”. Try another author name.
           </p>
         )}
 
         {!loading && !error && filteredPhotos.length > 0 && (
-          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-            {filteredPhotos.map((photo) => (
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+            {filteredPhotos.map((photo, index) => (
               <PhotoCard
                 key={photo.id}
                 photo={photo}
+                index={index}
                 isFavourite={favourites.includes(photo.id)}
                 onToggle={handleToggleFavourite}
               />
