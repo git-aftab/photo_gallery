@@ -4,7 +4,7 @@ import { memo } from 'react'
 // passes a useCallback-wrapped handler, toggling a favourite doesn't re-render it.
 function SearchBar({ value, onChange }) {
   return (
-    <div role="search" className="mt-8 sm:mt-12">
+    <div role="search" className="mt-7 max-w-xl sm:mt-9">
       <label htmlFor="author-search" className="sr-only">
         Search photos by author
       </label>
@@ -13,9 +13,9 @@ function SearchBar({ value, onChange }) {
         type="text"
         value={value}
         onChange={onChange}
-        placeholder="Search by author"
+        placeholder="Find an author"
         autoComplete="off"
-        className="w-full border-b-2 border-ink bg-transparent py-3 text-3xl font-medium placeholder:text-ink-soft focus:border-accent focus:outline-none focus-visible:border-accent sm:text-5xl"
+        className="w-full rounded-md border border-line/80 bg-mat px-4 py-3 text-base font-medium placeholder:text-ink-soft transition-colors duration-200 focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 sm:px-5"
       />
     </div>
   )

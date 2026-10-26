@@ -13,12 +13,12 @@
   --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
 
   /* Colours */
-  --color-wall: #d9dedc;      /* page background, a cool gallery-wall grey */
-  --color-mat: #f6f6f2;       /* the white mat around each photo */
-  --color-ink: #17262b;       /* main text and the search underline */
-  --color-ink-soft: #4d5d62;  /* placeholder and secondary text */
-  --color-line: #b4bdbb;      /* image placeholder while a photo loads */
-  --color-accent: #c2255c;    /* favourite heart and focus rings */
+  --color-wall: #f2ede4;      /* warm paper background */
+  --color-mat: #fffdf8;       /* ivory image mat */
+  --color-ink: #29231f;       /* charcoal text */
+  --color-ink-soft: #6f6258;  /* supporting text */
+  --color-line: #d6cabe;      /* fine borders and image placeholder */
+  --color-accent: #a9433d;    /* vermilion-inspired accent */
 }
 
 @layer base {
@@ -27,6 +27,7 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 }
 
