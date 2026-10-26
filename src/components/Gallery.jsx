@@ -11,7 +11,6 @@ import SearchBar from "./SearchBar";
 import Spinner from "./Spinner";
 
 export default function Gallery() {
-  // Data comes from the custom hook; Gallery never calls fetch itself.
   const { photos, loading, error } = useFetchPhotos();
 
   const [query, setQuery] = useState("");
@@ -30,8 +29,6 @@ export default function Gallery() {
     }
   }, [favourites]);
 
-  // useCallback: keeps the same function identity between renders, so the
-  // memoised SearchBar and PhotoCards don't re-render for no reason.
   const handleSearchChange = useCallback((event) => {
     setQuery(event.target.value);
   }, []);
@@ -40,8 +37,6 @@ export default function Gallery() {
     dispatch({ type: TOGGLE_FAVOURITE, payload: id });
   }, []);
 
-  // useMemo: re-filters only when the photos or the query change, not when
-  // an unrelated state change (like toggling a favourite) re-renders Gallery.
   const filteredPhotos = useMemo(() => {
     const term = query.trim().toLowerCase();
     if (!term) return photos;
