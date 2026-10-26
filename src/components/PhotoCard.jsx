@@ -4,7 +4,7 @@ import HeartIcon from './HeartIcon'
 // memo: a card re-renders only if its own photo, favourite state or handler
 // changes, so toggling one heart doesn't re-render the other 29 cards.
 function PhotoCard({ photo, index, isFavourite, onToggle }) {
-  const isFeature = index === 0 || index === 9
+  const isFeature = index === 0 || index === 9 || index === 18;
 
   return (
     <li className={isFeature ? 'sm:col-span-2' : ''}>
