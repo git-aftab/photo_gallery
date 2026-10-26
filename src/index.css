@@ -1,0 +1,38 @@
+/*
+  THEME CONTROL — change fonts and colours here and nowhere else.
+  Components only use the token names (bg-wall, text-ink, text-accent, font-sans...).
+*/
+
+/* Font: one family, Archivo. Its width axis (62–125) lets the title go
+   condensed while the body stays at normal width. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* Fonts */
+  --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Colours */
+  --color-wall: #d9dedc;      /* page background, a cool gallery-wall grey */
+  --color-mat: #f6f6f2;       /* the white mat around each photo */
+  --color-ink: #17262b;       /* main text and the search underline */
+  --color-ink-soft: #4d5d62;  /* placeholder and secondary text */
+  --color-line: #b4bdbb;      /* image placeholder while a photo loads */
+  --color-accent: #c2255c;    /* favourite heart and focus rings */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-wall);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* The title uses the width axis of the font. Tune the condensing here. */
+@layer components {
+  .title-condensed {
+    font-stretch: 70%;
+  }
+}
