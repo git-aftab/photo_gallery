@@ -8,17 +8,19 @@ function PhotoCard({ photo, index, isFavourite, onToggle }) {
 
   return (
     <li className={isFeature ? 'sm:col-span-2' : ''}>
-      <article className="group h-full bg-mat p-2.5 sm:p-3">
-        <div className="overflow-hidden rounded-md bg-line">
+      <article className="group flex h-full flex-col bg-mat p-2.5 sm:p-3">
+        <div
+          className={`overflow-hidden rounded-md bg-line ${
+            isFeature ? 'aspect-[16/9]' : 'min-h-52 flex-1'
+          }`}
+        >
           <img
             src={`https://picsum.photos/id/${photo.id}/640/480`}
             alt={`Photo by ${photo.author}`}
             width="640"
             height="480"
             loading="lazy"
-            className={`w-full bg-line object-cover transition-transform duration-500 ease-out motion-reduce:transition-none group-hover:scale-110 ${
-              isFeature ? 'aspect-[16/9]' : 'aspect-4/3'
-            }`}
+            className="h-full w-full bg-line object-cover transition-transform duration-500 ease-out motion-reduce:transition-none group-hover:scale-110"
           />
         </div>
         <div className="flex items-center justify-between gap-3 px-1 pt-2.5">

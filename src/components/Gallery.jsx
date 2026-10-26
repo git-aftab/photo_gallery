@@ -1,60 +1,64 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
-import useFetchPhotos from '../hooks/useFetchPhotos'
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import useFetchPhotos from "../hooks/useFetchPhotos";
 import {
   FAVOURITES_KEY,
   TOGGLE_FAVOURITE,
   favouritesReducer,
   initFavourites,
-} from '../reducers/favouritesReducer'
-import PhotoCard from './PhotoCard'
-import SearchBar from './SearchBar'
-import Spinner from './Spinner'
+} from "../reducers/favouritesReducer";
+import PhotoCard from "./PhotoCard";
+import SearchBar from "./SearchBar";
+import Spinner from "./Spinner";
 
 export default function Gallery() {
   // Data comes from the custom hook; Gallery never calls fetch itself.
-  const { photos, loading, error } = useFetchPhotos()
+  const { photos, loading, error } = useFetchPhotos();
 
-  const [query, setQuery] = useState('')
-  const [favourites, dispatch] = useReducer(favouritesReducer, [], initFavourites)
+  const [query, setQuery] = useState("");
+  const [favourites, dispatch] = useReducer(
+    favouritesReducer,
+    [],
+    initFavourites,
+  );
 
   // Save favourites to localStorage whenever they change.
   useEffect(() => {
     try {
-      localStorage.setItem(FAVOURITES_KEY, JSON.stringify(favourites))
+      localStorage.setItem(FAVOURITES_KEY, JSON.stringify(favourites));
     } catch {
       // Storage can be blocked (private mode, quota); the app still works.
     }
-  }, [favourites])
+  }, [favourites]);
 
   // useCallback: keeps the same function identity between renders, so the
   // memoised SearchBar and PhotoCards don't re-render for no reason.
   const handleSearchChange = useCallback((event) => {
-    setQuery(event.target.value)
-  }, [])
+    setQuery(event.target.value);
+  }, []);
 
   const handleToggleFavourite = useCallback((id) => {
-    dispatch({ type: TOGGLE_FAVOURITE, payload: id })
-  }, [])
+    dispatch({ type: TOGGLE_FAVOURITE, payload: id });
+  }, []);
 
   // useMemo: re-filters only when the photos or the query change, not when
   // an unrelated state change (like toggling a favourite) re-renders Gallery.
   const filteredPhotos = useMemo(() => {
-    const term = query.trim().toLowerCase()
-    if (!term) return photos
-    return photos.filter((photo) => photo.author.toLowerCase().includes(term))
-  }, [photos, query])
+    const term = query.trim().toLowerCase();
+    if (!term) return photos;
+    return photos.filter((photo) => photo.author.toLowerCase().includes(term));
+  }, [photos, query]);
 
   return (
     <>
       <header className="border-b border-line/70 pb-8 sm:pb-10">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-accent sm:mb-4">
-          The wedding edit
+          THE DAILY FRAME{" "}
         </p>
         <h1 className="title-condensed max-w-3xl text-5xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-7xl lg:text-8xl">
           Moments, held close.
         </h1>
         <p className="mt-4 max-w-xl text-sm leading-6 text-ink-soft sm:mt-5 sm:text-base">
-          A considered collection of celebrations, gestures, and gathering.
+          A curated collection of photographs, everyday scenes, and moments worth remembering. Discover the stories behind each image and save your favourites along the way.
         </p>
         <SearchBar value={query} onChange={handleSearchChange} />
       </header>
@@ -63,9 +67,15 @@ export default function Gallery() {
         {loading && <Spinner />}
 
         {error && (
-          <p role="alert" className="max-w-xl rounded-lg border border-accent/30 bg-mat px-5 py-10 text-base leading-7 text-ink-soft sm:px-7">
-            <span className="block font-semibold text-ink">The gallery is unavailable.</span>
-            Photos could not be loaded. {error} Check your connection and reload the page.
+          <p
+            role="alert"
+            className="max-w-xl rounded-lg border border-accent/30 bg-mat px-5 py-10 text-base leading-7 text-ink-soft sm:px-7"
+          >
+            <span className="block font-semibold text-ink">
+              The gallery is unavailable.
+            </span>
+            Photos could not be loaded. {error} Check your connection and reload
+            the page.
           </p>
         )}
 
@@ -90,5 +100,5 @@ export default function Gallery() {
         )}
       </section>
     </>
-  )
+  );
 }
