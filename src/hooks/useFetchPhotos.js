@@ -3,15 +3,12 @@ import { useEffect, useState } from 'react'
 const API_URL = import.meta.env.VITE_API_URL
 // console.log("API URL:", API_URL)
 
-// Fetches the photo list once, when the component using it mounts.
-// Returns: photos (array), loading (boolean), error (string or null).
 export default function useFetchPhotos() {
   const [photos, setPhotos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    // Lets us cancel the request if the component unmounts mid-fetch
     // (StrictMode mounts twice in development, so this matters).
     const controller = new AbortController()
 
